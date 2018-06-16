@@ -40,6 +40,7 @@ while True:
       functions.printPatterns(pattern)
       input()
       os.system('cls')
+    
     elif res == 2:
       os.system('cls')
       print('definisci i parametri dell\'elenco da generare')
@@ -50,6 +51,7 @@ while True:
       functions.printPartialPatterns(a, r1, r2)
       input()
       os.system('cls')
+    
     elif res == 3:
       os.system('cls')
       print('definisci i parametri dell\'elenco da generare')
@@ -80,8 +82,7 @@ while True:
             else:
               i=len(f)-1
               print(f[i])
-
-          
+     
         else:
           os.system('cls')
           break

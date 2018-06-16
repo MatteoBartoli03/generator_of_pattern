@@ -61,7 +61,11 @@ def ordPartialPatterns(pattern, r1, r2):
               b.append(pattern[z][x][y][i]) 
   e = len(b)
   c = []
-  h = Fattoriale(int(r1))/(Fattoriale(int(r2))*Fattoriale(int(r1)-int(r2)))
+  if r2 == r1 or r2 == '0':
+    h = 1
+  else:
+    h = Fattoriale(int(r1))/(Fattoriale(int(r2))*Fattoriale(int(r1)-int(r2)))
+
   for k in range(int(h)):
     d = random.randint(0, e-1)
     e -= 1
