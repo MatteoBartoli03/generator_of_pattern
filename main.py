@@ -42,29 +42,85 @@ while True:
       os.system('cls')
     
     elif res == 2:
+      r3 = 0
+      r4 = 0
       os.system('cls')
       print('definisci i parametri dell\'elenco da generare')
       print()
+      print('inserendo \'x\' al posto del valore della lunghezza del pattern la lunghezza del pattern sarà 5')
       r1=input('definisci la lunghezza del pattern: ')
+      print()
+      print('inserendo \'x\' al posto del numero di caratteri pieni verrà ignorato questo parametro')
       r2=input('definisci il numero di caratteri pieni: ')
-      a=functions.partialGeneration(r1, r2)
+
+      if r1 == 'x':
+        if r2 == 'x':
+          pass
+        elif int(r2) > 5:
+          r2 = '5'
+          print()
+          print('siccome il numero di caratteri pieni è maggiore del numero complessivo di caratteri, il 2 parametro sarà uguale al numero di caratteri')
+          input()
+      elif r2 == 'x':
+        pass
+      elif int(r2) > int(r1):
+        r2 = str(r1)
+        print()
+        print('siccome il numero di caratteri pieni è maggiore del numero complessivo di caratteri, il 2 parametro sarà uguale al numero di caratteri')
+        input()
+
+      if r2 == 'x':
+        r3 = 1
+      if r1 == 'x':
+        r4 = 1
+      a=functions.partialGeneration(r1, r2, r3, r4)
       functions.printPartialPatterns(a, r1, r2)
       input()
       os.system('cls')
     
     elif res == 3:
+      r3 = 0
+      r4 = 0
       os.system('cls')
-      print('definisci i parametri dell\'elenco da generare')
+      print('definisci i parametri del pattern da generare')
       print()
+      print('inserendo \'x\' al posto del valore della lunghezza del pattern la lunghezza del pattern sarà 5')
       r1=input('definisci la lunghezza del pattern: ')
+      print()
+      print('inserendo \'x\' al posto del numero di caratteri pieni verrà ignorato questo parametro')
       r2=input('definisci il numero di caratteri pieni: ')
-      a=functions.partialGeneration(r1, r2)
+
+      if r1 == 'x':
+        if r2 == 'x':
+          pass
+        elif int(r2) > 5:
+          r2 = '5'
+          print()
+          print('siccome il numero di caratteri pieni è maggiore del numero complessivo di caratteri, il 2 parametro sarà uguale al numero di caratteri')
+          input()
+      elif r2 == 'x':
+        pass
+      elif int(r2) > int(r1):
+        r2 = str(r1)
+        print()
+        print('siccome il numero di caratteri pieni è maggiore del numero complessivo di caratteri, il 2 parametro sarà uguale al numero di caratteri')
+        input()
+
+      if r2 == 'x':
+        r3 = 1
+      if r1 == 'x':
+        r4 = 1
+      a=functions.partialGeneration(r1, r2, r3, r4)
       f=functions.ordPartialPatterns(a, r1, r2)
       print(f[0])
       i=0
 
       while True:
-        r = input('cosa vuoi fare?')
+        print('cosa vuoi fare?')
+        print('w - mostra il pattern successivo')
+        print('s - mostra il pattern precedente')
+        print('m - torna al menu principale')
+        r = input()
         os.system('cls')
         if r.upper() != 'M':
           if r.upper() == 'W':

@@ -9,17 +9,38 @@ def Fattoriale(n):
   return n
 
 
-def partialGeneration(r1, r2):
-  r1 = int(r1)
-  r2 = int(r2)
-  pattern = {}
-  for z in range(0, r1+1):
-    pattern.update({z : {}})
-    for x in range(z+1):
-      if x == r1:
-        pattern[z].update({'s'+ str(z) : {}})
-        for y in range (x+1):
-          if y == r2:
+def partialGeneration(r1, r2, r3, r4):
+  if r3 != 1 and r4 != 1:
+    r1 = int(r1)
+    r2 = int(r2)
+    pattern = {}
+    for z in range(0, r1+1):
+      pattern.update({z : {}})
+      for x in range(z+1):
+        if x == r1:
+          pattern[z].update({'s'+ str(z) : {}})
+          for y in range (x+1):
+            if y == r2:
+              pattern[z]['s' + str(z)].update({'n' + str(y) : {}})
+              if y == 0 or y == x:
+                pattern[z]['s' + str(z)]['n' + str(y)].update({'i0' : full(x, y)})
+              else:
+                num = []
+                for i in range(x):
+                  num.append(i+1)
+                combs = list(itertools.combinations(num, y))
+                for i in range(len(combs)):
+                  pattern[z]['s' + str(z)]['n' + str(y)].update({'i'+str(i): printCurrentPattern(x, y, i)})
+  
+  elif r3 == 1 and r4 != 1:
+    r1 = int(r1)
+    pattern = {}
+    for z in range(0, r1+1):
+      pattern.update({z : {}})
+      for x in range(z+1):
+        if x == r1:
+          pattern[z].update({'s'+ str(z) : {}})
+          for y in range (x+1):
             pattern[z]['s' + str(z)].update({'n' + str(y) : {}})
             if y == 0 or y == x:
               pattern[z]['s' + str(z)]['n' + str(y)].update({'i0' : full(x, y)})
@@ -30,39 +51,163 @@ def partialGeneration(r1, r2):
               combs = list(itertools.combinations(num, y))
               for i in range(len(combs)):
                 pattern[z]['s' + str(z)]['n' + str(y)].update({'i'+str(i): printCurrentPattern(x, y, i)})
+
+  elif r3 != 1 and r4 == 1:
+    r2 = int(r2)
+    pattern = {}
+    for z in range(0, 6):
+      pattern.update({z : {}})
+      for x in range(z+1):
+        if x == 5:
+          pattern[z].update({'s'+ str(z) : {}})
+          for y in range (x+1):
+            if y == r2:
+              pattern[z]['s' + str(z)].update({'n' + str(y) : {}})
+              if y == 0 or y == x:
+                pattern[z]['s' + str(z)]['n' + str(y)].update({'i0' : full(x, y)})
+              else:
+                num = []
+                for i in range(x):
+                  num.append(i+1)
+                combs = list(itertools.combinations(num, y))
+                for i in range(len(combs)):
+                  pattern[z]['s' + str(z)]['n' + str(y)].update({'i'+str(i): printCurrentPattern(x, y, i)})
+
+  elif r3 == 1 and r4 == 1:
+    pattern = generatePattern(1, 5)
+
+
   return pattern
 
 def printPartialPatterns(pattern, r1, r2):
-  print()
-  print('-------------------------')
-  print()
-  for z in pattern:
-    if z == int(r1):
-      print('S' + str(z))
-      for x in pattern[z]:
-        for y in pattern[z][x]:
-          if y == ('n' + str(r2)):
-            print('N'+ str(r2))
-            print()
-            for i in pattern[z][x][y]:
-              print (i.upper(), '->', pattern[z][x][y][i])
-            print()
-            print('-------------------------')
-            print()
+  if r2 != 'x':
+    if r1 != 'x':
+      for z in pattern:
+        if z == int(r1):
+          print()
+          print('-------------------------')
+          print()
+          print('S' + str(z))
+          for x in pattern[z]:
+            for y in pattern[z][x]:
+              if y == ('n' + str(r2)):
+                print('N'+ str(r2))
+                print()
+                for i in pattern[z][x][y]:
+                  print (i.upper(), '->', pattern[z][x][y][i])
+                print()
+                print('-------------------------')
+                print()
+    else:
+      for z in pattern:
+        if z == 5:
+          print()
+          print('-------------------------')
+          print()
+          print('S' + str(z))
+          for x in pattern[z]:
+            for y in pattern[z][x]:
+              if y == ('n' + str(r2)):
+                print('N'+ str(r2))
+                print()
+                for i in pattern[z][x][y]:
+                  print (i.upper(), '->', pattern[z][x][y][i])
+                print()
+                print('-------------------------')
+                print()
+
+  else:
+    if r1 != 'x':
+      for z in pattern:
+        if z == int(r1):
+          print()
+          print('-------------------------')
+          print()
+          print('S' + str(z))
+          print()
+          print('-------------------------')
+          print()
+          for x in pattern[z]:
+            for y in pattern[z][x]:
+              print('N' + y[1])
+              print()
+              for i in pattern[z][x][y]:
+                print (i.upper(), '->', pattern[z][x][y][i])
+              print()
+              print('-------------------------')
+              print()
+    else:
+      for z in pattern:
+        if z == 5:
+          print()
+          print('-------------------------')
+          print()
+          print('S' + str(z))
+          print()
+          print('-------------------------')
+          print()
+          for x in pattern[z]:
+            for y in pattern[z][x]:
+              print('N' + y[1])
+              print()
+              for i in pattern[z][x][y]:
+                print (i.upper(), '->', pattern[z][x][y][i])
+              print()
+              print('-------------------------')
+              print()
+
 
 def ordPartialPatterns(pattern, r1, r2):
   b = []
-  for z in pattern:
-    if z == int(r1):
-      for x in pattern[z]:
-        for y in pattern[z][x]:
-          if y == ('n' + str(r2)):
-            for i in pattern[z][x][y]:
-              b.append(pattern[z][x][y][i]) 
+  if r2 != 'x':
+    if r1 != 'x':
+      for z in pattern:
+        if z == int(r1):
+          for x in pattern[z]:
+            for y in pattern[z][x]:
+              if y == ('n' + str(r2)):
+                for i in pattern[z][x][y]:
+                  b.append(pattern[z][x][y][i])
+    else:
+      for z in pattern:
+        if z == 5:
+          for x in pattern[z]:
+            for y in pattern[z][x]:
+              if y == ('n' + str(r2)):
+                for i in pattern[z][x][y]:
+                  b.append(pattern[z][x][y][i])
+
+  else:
+    if r1 != 'x':
+      for z in pattern:
+        if z == int(r1):
+          for x in pattern[z]:
+            for y in pattern[z][x]:
+              for i in pattern[z][x][y]:
+                b.append(pattern[z][x][y][i])
+
+    else:
+      for z in pattern:
+        if z == 5:
+          for x in pattern[z]:
+            for y in pattern[z][x]:
+              for i in pattern[z][x][y]:
+                b.append(pattern[z][x][y][i])     
+
+
   e = len(b)
   c = []
-  if r2 == r1 or r2 == '0':
+  r5 = ''
+  if r1 == 'x':
+    r5 = 5
+  if r2 == r5 or r2 == '0':
     h = 1
+  elif r1 == 'x' and r2 == 'x':
+    h = 2** 5
+  elif r2 == 'x' and r1 != 'x':
+      h = 2**int(r1)
+  elif r1 == 'x':
+    h = Fattoriale(int(r5))/(Fattoriale(int(r2))*Fattoriale(int(r5)-int(r2)))
   else:
     h = Fattoriale(int(r1))/(Fattoriale(int(r2))*Fattoriale(int(r1)-int(r2)))
 
